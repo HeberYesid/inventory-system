@@ -8,6 +8,7 @@ import { SuppliersModule } from './suppliers/suppliers.module';
 import { PurchasesModule } from './purchases/purchases.module';
 import { SalesModule } from './sales/sales.module';
 import { KardexModule } from './kardex/kardex.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -23,5 +24,6 @@ import { KardexModule } from './kardex/kardex.module';
     SalesModule,
     KardexModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

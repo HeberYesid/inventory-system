@@ -15,10 +15,11 @@ export class KardexController {
 
   @Get()
   findByProduct(
-    @Query('product_id', new ParseIntPipe({ optional: true })) productId?: number,
+    @Query('product_id') productIdStr?: string,
     @Query('from') from?: string,
     @Query('to') to?: string,
   ) {
+    const productId = productIdStr ? parseInt(productIdStr, 10) : undefined;
     const fromDate = from ? new Date(from) : undefined;
     const toDate = to ? new Date(to) : undefined;
 
