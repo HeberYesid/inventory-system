@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+yarn.lock
+
+# Environment variables (DO NOT commit these!)
+.env
+.env.local
+.env.production
+.env.development
+
+# Build outputs
+dist/
+build/
+*.log
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+*.pem
+
+# Database
+*.db
+*.sqlite
+
+# Docker
+docker-compose.override.yml
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Scripts temp files
+backend/seed-simple.js
+
+# Backups
+backups/*.sql
