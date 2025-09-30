@@ -35,17 +35,27 @@ Sistema web para la gestión de compras, ventas, proveedores e inventario con co
 
 ## 🛠️ Instalación y Configuración
 
-### 1. Clonar y configurar variables de entorno
+### Opción 1: Setup Automático (Recomendado)
 
-```bash
-cd inventory-system
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
+```powershell
+# Ejecutar script de instalación
+.\scripts\setup.ps1
 ```
 
-### 2. Iniciar con Docker Compose
+Este script automáticamente:
+- Verifica requisitos (Docker, Node.js)
+- Crea archivos `.env`
+- Inicia servicios con Docker Compose
+- Ejecuta migraciones y seed de datos
+
+### Opción 2: Setup Manual
 
 ```bash
+# 1. Configurar variables de entorno
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+
+# 2. Iniciar con Docker Compose
 docker-compose up -d
 ```
 
@@ -75,15 +85,27 @@ inventory-system/
 │   │   ├── sales/     # Registro de ventas
 │   │   └── kardex/    # Consulta de kardex
 │   ├── prisma/        # Schema y migraciones
+│   ├── test/          # Tests E2E
 │   └── package.json
 ├── frontend/          # React SPA
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── services/
+│   │   ├── store/     # Zustand state management
+│   │   ├── test/      # Test setup
 │   │   └── App.tsx
+│   ├── vitest.config.ts
 │   └── package.json
-└── docker-compose.yml
+├── docs/              # 📚 Documentación completa
+│   ├── README.md      # Índice de documentación
+│   ├── QUICK_START.md
+│   ├── API_DOCUMENTATION.md
+│   └── ...
+├── scripts/           # Scripts de utilidad
+├── backups/           # Backups de base de datos
+├── docker-compose.yml
+└── README.md          # Este archivo
 ```
 
 ## 🔌 API Endpoints
@@ -123,7 +145,36 @@ inventory-system/
 - `sale_items` - Detalle de ventas
 - `kardex` - Registro de movimientos
 
+## 🛠️ Scripts de Utilidad
+
+La carpeta [`scripts/`](./scripts/) contiene scripts de PowerShell para automatizar tareas:
+
+- **[setup.ps1](./scripts/setup.ps1)** - Instalación automática del proyecto
+- **[backup-database.ps1](./scripts/backup-database.ps1)** - Crear backup de la BD
+- **[restore-database.ps1](./scripts/restore-database.ps1)** - Restaurar backup
+- **[seed-database.ps1](./scripts/seed-database.ps1)** - Ejecutar seed de datos
+- **[test-kardex.ps1](./scripts/test-kardex.ps1)** - Diagnosticar endpoint Kardex
+
+Ver [scripts/README.md](./scripts/README.md) para más detalles.
+
+## 📚 Documentación
+
+Toda la documentación del proyecto está organizada en la carpeta [`docs/`](./docs/):
+
+- **[📖 Guía de Instalación](./docs/GUIA_INSTALACION.md)** - Instalación paso a paso detallada
+- **[⚡ Inicio Rápido](./docs/QUICK_START.md)** - Setup en 3 pasos
+- **[📖 Manual de Usuario](./docs/MANUAL_USUARIO.md)** - Guía completa de uso
+- **[🔌 API Documentation](./docs/API_DOCUMENTATION.md)** - Referencia completa de la API REST
+- **[🏗️ Arquitectura](./docs/ARCHITECTURE.md)** - Diseño y estructura del sistema
+- **[🧪 Testing](./docs/TESTING.md)** - Guía de pruebas y testing
+- **[🤝 Contribuir](./docs/CONTRIBUTING.md)** - Guía para contribuidores
+- **[📋 Resumen del Proyecto](./docs/PROJECT_SUMMARY.md)** - Documento ejecutivo
+- **[🎯 GitHub Setup](./docs/GITHUB_SETUP.md)** - Instrucciones para subir a GitHub
+- **[📝 Changelog](./docs/CHANGELOG.md)** - Historial de versiones
+
 ## 🧪 Pruebas
+
+Ver la [**Guía de Testing**](./docs/TESTING.md) para más detalles.
 
 ### Backend
 ```bash
