@@ -13,6 +13,7 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
@@ -22,9 +23,9 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Authentication', () => {
-    it('/auth/login (POST) - should login successfully', () => {
+    it('/api/auth/login (POST) - should login successfully', () => {
       return request(app.getHttpServer())
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           username: 'admin',
           password: 'admin123',
@@ -37,9 +38,9 @@ describe('AppController (e2e)', () => {
         });
     });
 
-    it('/auth/login (POST) - should fail with invalid credentials', () => {
+    it('/api/auth/login (POST) - should fail with invalid credentials', () => {
       return request(app.getHttpServer())
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           username: 'admin',
           password: 'wrongpassword',
@@ -49,9 +50,9 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Products', () => {
-    it('/products (GET) - should return products list', () => {
+    it('/api/products (GET) - should return products list', () => {
       return request(app.getHttpServer())
-        .get('/products')
+        .get('/api/products')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200)
         .then((response) => {
@@ -59,9 +60,9 @@ describe('AppController (e2e)', () => {
         });
     });
 
-    it('/products (GET) - should fail without authentication', () => {
+    it('/api/products (GET) - should fail without authentication', () => {
       return request(app.getHttpServer())
-        .get('/products')
+        .get('/api/products')
         .expect(401);
     });
   });
@@ -70,7 +71,7 @@ describe('AppController (e2e)', () => {
     it('should create a purchase and update stock', async () => {
       // Get initial product
       const productsResponse = await request(app.getHttpServer())
-        .get('/products')
+        .get('/api/products')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
 
@@ -79,7 +80,7 @@ describe('AppController (e2e)', () => {
 
       // Create purchase
       const purchaseResponse = await request(app.getHttpServer())
-        .post('/purchases')
+        .post('/api/purchases')
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           supplierId: 1,
@@ -98,7 +99,7 @@ describe('AppController (e2e)', () => {
 
       // Verify stock increased
       const updatedProductResponse = await request(app.getHttpServer())
-        .get(`/products/${product.id}`)
+        .get(`/api/products/${product.id}`)
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
 
